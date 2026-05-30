@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Short URL Created</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+        *{
+            margin:0;
+            padding:0;
+            box-sizing:border-box;
+            font-family: 'Inter',Georgia, 'Times New Roman', Times, serif;
+        }
+
+        body{
+            font-family:Inter,sans-serif;
+        
+            background:#050505;
+            color:white;
+        
+            min-height:100vh;
+        
+            display:flex;
+            flex-direction:column;
+        }
+
+        /* NAVBAR */
+
+        .navbar{
+            width:90%;
+            max-width:1200px;
+            margin:20px auto;
+            display:flex;
+            justify-content:space-between;
+            align-items:center;
+            padding:15px 25px;
+            background:rgba(12,12,12,0.85);
+            border:1px solid rgba(255,255,255,0.05);
+            border-radius:18px;
+        }
+
+        .logo{
+            font-size:1.2rem;
+            font-weight:700;
+        }
+
+        .back-btn{
+            color:#a1a1aa;
+            text-decoration:none;
+        }
+
+        .back-btn:hover{
+            color:white;
+        }
+
+        /* MAIN */
+
+        .result-container{
+            flex:1;
+        
+            display:flex;
+            justify-content:center;
+            align-items:center;
+        
+            padding:40px 20px;
+        }
+
+        .result-card{
+            width:100%;
+            max-width:700px;
+        
+            background:#0f0f0f;
+            border:1px solid #1f1f1f;
+            border-radius:24px;
+            padding:50px;
+            text-align:center;
+        }
+
+        .success-icon{
+            width:80px;
+            height:80px;
+        
+            margin:auto;
+        
+            display:flex;
+            justify-content:center;
+            align-items:center;
+        
+            border-radius:50%;
+        
+            font-size:2rem;
+            font-weight:bold;
+        
+            background:linear-gradient(
+                135deg,
+                #2563eb,
+                #10b981
+            );
+        
+            margin-bottom:25px;
+        }
+
+        .result-card h1{
+            margin-bottom:15px;
+        }
+
+        .subtitle{
+            color:#a1a1aa;
+            margin-bottom:35px;
+        }
+
+        .url-box{
+            display:flex;
+            gap:10px;
+        }
+
+        .url-box input{
+            flex:1;
+            background:#111111;
+            border:1px solid #27272a;
+            color:white;
+            padding:16px;
+            border-radius:12px;
+        }
+
+        .url-box button{
+            border:none;
+            padding:16px 22px;
+            border-radius:12px;
+            cursor:pointer;
+            color:white;
+            font-weight:600;
+        
+            background:linear-gradient(
+                135deg,
+                #2563eb,
+                #10b981
+            );
+        }
+
+        .meta{
+            margin-top:35px;
+        
+            display:grid;
+            grid-template-columns:1fr 1fr;
+        
+            gap:20px;
+        }
+
+        .meta-item{
+            background:#111111;
+            border:1px solid #1f1f1f;
+            border-radius:14px;
+            padding:20px;
+        }
+
+        .label{
+            display:block;
+            color:#71717a;
+            margin-bottom:8px;
+        }
+
+        .value{
+            font-weight:600;
+        }
+
+        .success{
+            color:#10b981;
+        }
+
+        .create-btn{
+            display:inline-block;
+            margin-top:35px;
+            text-decoration:none;
+            color:white;
+            font-weight:600;
+            padding:14px 24px;
+            border-radius:12px;
+            background:linear-gradient(
+                135deg,
+                #2563eb,
+                #10b981
+            );
+        }
+
+        footer{
+            text-align:center;
+            padding:25px;
+            color:#71717a;
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar">
+        <div class="logo">
+            URL Shortener
+        </div>
+
+        <a href="/" class="back-btn">
+            ← Home
+        </a>
+    </nav>
+
+    <main class="result-container">
+
+        <div class="result-card">
+
+            <div class="success-icon">
+                ✓
+            </div>
+
+            <h1>URL Shortened Successfully</h1>
+
+            <p class="subtitle">
+                Your shortened link is ready to use.
+            </p>
+
+            <div class="url-box">
+
+                <input
+                    type="text"
+                    id="shortUrl"
+                    value="http://127.0.0.1:5000/{{ code }}"
+                    readonly
+                >
+
+                <button onclick="copyLink()">
+                    Copy
+                </button>
+
+            </div>
+
+            <div class="meta">
+
+                <div class="meta-item">
+                    <span class="label">Short Code</span>
+                    <span class="value">{{ code }}</span>
+                </div>
+
+                <div class="meta-item">
+                    <span class="label">Status</span>
+                    <span class="value success">
+                        Active
+                    </span>
+                </div>
+
+            </div>
+
+            <a href="/" class="create-btn">
+                Shorten Another URL
+            </a>
+
+        </div>
+
+    </main>
+
+    <footer>
+        Built by Sushant Kumar Kushwaha
+    </footer>
+
+    <script>
+        function copyLink() {
+            const input = document.getElementById("shortUrl");
+
+            navigator.clipboard.writeText(input.value);
+
+            alert("Link copied!");
+        }
+    </script>
+
+</body>
+</html>
