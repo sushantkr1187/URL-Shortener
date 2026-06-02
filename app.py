@@ -6,7 +6,9 @@ import os
 
 app=Flask(__name__)
 
-conn=psycopg.connect(os.environ["postgresql://urlshortener_6fl7_user:l38fIwxo86ocLHcf25s63OFTmGFrdusw@dpg-d8f7n06gvqtc7390tieg-a/urlshortener_6fl7"])
+DATABASE_URL = "postgresql://urlshortener_6fl7_user:l38fIwxo86ocLHcf25s63OFTmGFrdusw@dpg-d8f7n06gvqtc7390tieg-a.oregon-postgres.render.com/urlshortener_6fl7"
+
+conn=psycopg.connect(DATABASE_URL)
 cur=conn.cursor()
 cur.execute('CREATE TABLE IF NOT EXISTS urls (short_code TEXT PRIMARY KEY,original_url TEXT NOT NULL,created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP);')
 conn.commit()
@@ -16,7 +18,7 @@ conn.close()
 def home():
     if request.method == "POST":
         url=request.form.get("url")
-        conn = psycopg.connect(os.environ["postgresql://urlshortener_6fl7_user:l38fIwxo86ocLHcf25s63OFTmGFrdusw@dpg-d8f7n06gvqtc7390tieg-a/urlshortener_6fl7"])
+        conn = psycopg.connect(DATABASE_URL)
         cur = conn.cursor()
         while True:
             code = ''.join(rd.choices(st.ascii_letters + st.digits,k=6))
@@ -33,7 +35,7 @@ def home():
 
 @app.route('/<code>')
 def visit(code):
-    conn = psycopg.connect(os.environ["postgresql://urlshortener_6fl7_user:l38fIwxo86ocLHcf25s63OFTmGFrdusw@dpg-d8f7n06gvqtc7390tieg-a/urlshortener_6fl7L"])
+    conn = psycopg.connect(DATABASE_URL)
     cur = conn.cursor()
     cur.execute("SELECT original_url FROM urls WHERE short_code=%s",(code,))
     p=cur.fetchone()
