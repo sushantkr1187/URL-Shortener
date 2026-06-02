@@ -1,13 +1,14 @@
 from flask import Flask,redirect,render_template,request
 import random as rd
 import string as st
-import sqlite3
+import psycopg
+import os
 
 app=Flask(__name__)
 
-conn=sqlite3.connect('urls.db')
+conn=psycopg.connect(os.environ["postgresql://urlshortener_6fl7_user:l38fIwxo86ocLHcf25s63OFTmGFrdusw@dpg-d8f7n06gvqtc7390tieg-a/urlshortener_6fl7"])
 cur=conn.cursor()
-cur.execute('CREATE TABLE IF NOT EXISTS urls(short_code TEXT PRIMARY KEY,original_url TEXT NOT NULL)')
+cur.execute('CREATE TABLE IF NOT EXISTS urls (short_code TEXT PRIMARY KEY,original_url TEXT NOT NULL,created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP);')
 conn.commit()
 conn.close()
 
@@ -15,13 +16,13 @@ conn.close()
 def home():
     if request.method == "POST":
         url=request.form.get("url")
-        conn = sqlite3.connect('urls.db')
+        conn = psycopg.connect(os.environ["postgresql://urlshortener_6fl7_user:l38fIwxo86ocLHcf25s63OFTmGFrdusw@dpg-d8f7n06gvqtc7390tieg-a/urlshortener_6fl7"])
         cur = conn.cursor()
         while True:
             code = ''.join(rd.choices(st.ascii_letters + st.digits,k=6))
-            cur.execute("SELECT 1 FROM urls WHERE short_code=?",(code,))
+            cur.execute("SELECT 1 FROM urls WHERE short_code=%s",(code,))
             if cur.fetchone() is None: break
-        cur.execute("INSERT INTO urls VALUES (?, ?)",(code, url))
+        cur.execute("INSERT INTO urls(short_code, original_url) VALUES (%s, %s)",(code, url))
         conn.commit()
         conn.close()
         # print(url)
@@ -32,9 +33,9 @@ def home():
 
 @app.route('/<code>')
 def visit(code):
-    conn = sqlite3.connect('urls.db')
+    conn = psycopg.connect(os.environ["postgresql://urlshortener_6fl7_user:l38fIwxo86ocLHcf25s63OFTmGFrdusw@dpg-d8f7n06gvqtc7390tieg-a/urlshortener_6fl7L"])
     cur = conn.cursor()
-    cur.execute("SELECT original_url FROM urls WHERE short_code=?",(code,))
+    cur.execute("SELECT original_url FROM urls WHERE short_code=%s",(code,))
     p=cur.fetchone()
     conn.commit()
     conn.close()
