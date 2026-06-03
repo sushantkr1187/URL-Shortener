@@ -20,7 +20,7 @@ A lightweight URL shortening service built with **Flask** and **PostgreSQL**. Pa
 - Random unique short code generation
 - PostgreSQL database integration
 - Automatic timestamp recording
-- Persistent cloud-hosted database
+- Cloud-hosted PostgreSQL database powered by Supabase
 - Deployed and accessible through the web
 
 ---
@@ -39,8 +39,21 @@ A lightweight URL shortening service built with **Flask** and **PostgreSQL**. Pa
 - Jinja2 Templates
 
 ### Deployment
+- Render (Application Hosting)
+- Supabase (PostgreSQL Database)
 - Gunicorn
-- Render
+
+---
+
+## 🏗️ Architecture
+
+```text
+User
+  ↓
+Flask Application (Render)
+  ↓
+PostgreSQL Database (Supabase)
+```
 
 ---
 
@@ -121,7 +134,7 @@ Set a `DATABASE_URL` environment variable.
 Example:
 
 ```text
-postgresql://username:password@localhost:5432/urlshortener
+postgresql://username:password@host:5432/postgres
 ```
 
 ### Run the Application
@@ -178,6 +191,14 @@ This occurs because the application is currently configured to generate shortene
 
 ---
 
+## 📢 Version Notice
+
+As of v2.0.1, the project uses Supabase PostgreSQL as its primary database backend.
+
+The legacy Render PostgreSQL infrastructure used in v2.0.0 will be retired on 02 July 2026 due to free-tier database expiration.
+
+---
+
 ## 🎯 Learning Outcomes
 
 This project was built to learn and practice:
@@ -190,9 +211,10 @@ This project was built to learn and practice:
 - Database connectivity using Psycopg
 - CRUD fundamentals
 - Environment variables and configuration management
-- Cloud database integration
+- Cloud database integration using Supabase
+- PostgreSQL database management
 - Web application deployment
-- GitHub and Render workflows
+- GitHub, Render, and Supabase workflows
 
 ---
 
