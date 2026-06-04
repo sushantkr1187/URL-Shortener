@@ -6,6 +6,10 @@ import os
 
 app=Flask(__name__)
 
+# Render's PostgreSQL DB
+# DATABASE_URL = "postgresql://urlshortener_6fl7_user:l38fIwxo86ocLHcf25s63OFTmGFrdusw@dpg-d8f7n06gvqtc7390tieg-a.oregon-postgres.render.com/urlshortener_6fl7"
+
+# Supabase's PostgreSQL DB
 DATABASE_URL="postgresql://postgres.rwyxylqclmjncfttnyrf:oh6jPk2pkb0aJj2d@aws-1-ap-south-1.pooler.supabase.com:6543/postgres"
 
 conn=psycopg.connect(DATABASE_URL)
@@ -44,7 +48,7 @@ def visit(code):
     if p:
         return redirect(p[0])
 
-    return "URL not found", 404
+    return render_template("error.html"), 404
     
 if __name__=="__main__":
     app.run(debug=True)
