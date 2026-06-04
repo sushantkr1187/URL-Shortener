@@ -113,6 +113,10 @@
             margin-bottom:35px;
         }
 
+        .logo img{
+            height:52px;
+            display:block;
+        }
         .url-box{
             display:flex;
             gap:10px;
@@ -198,7 +202,8 @@
 
     <nav class="navbar">
         <div class="logo">
-            URL Shortener
+            <img src="{{ url_for('static', filename='logo.png') }}" alt="Logo">
+            <!-- URL Shortener -->
         </div>
 
         <a href="/" class="back-btn">
