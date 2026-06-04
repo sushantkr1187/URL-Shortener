@@ -71,6 +71,7 @@ url_shortener/
 │   └── logo.png
 │
 ├── templates/
+│   ├── error.html
 │   ├── index.html
 │   └── result.html
 │
