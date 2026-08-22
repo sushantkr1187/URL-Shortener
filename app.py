@@ -3,14 +3,17 @@ import random as rd
 import string as st
 import psycopg
 import os
+from dotenv import load_dotenv
+
+load_dotenv()
 
 app=Flask(__name__)
 
 # Render's PostgreSQL DB
-# DATABASE_URL = "postgresql://urlshortener_6fl7_user:l38fIwxo86ocLHcf25s63OFTmGFrdusw@dpg-d8f7n06gvqtc7390tieg-a.oregon-postgres.render.com/urlshortener_6fl7"
+# DATABASE_URL = "EXPIRED"
 
 # Supabase's PostgreSQL DB
-DATABASE_URL="postgresql://postgres.rwyxylqclmjncfttnyrf:oh6jPk2pkb0aJj2d@aws-1-ap-south-1.pooler.supabase.com:6543/postgres"
+DATABASE_URL=os.environ["DATABASE_URL"]
 
 conn=psycopg.connect(DATABASE_URL)
 cur=conn.cursor()
