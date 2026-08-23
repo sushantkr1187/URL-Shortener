@@ -76,6 +76,7 @@ url_shortener/
 │   └── result.html
 │
 ├── LICENSE
+├── .gitignore
 ├── README.md
 ├── app.py
 ├── procfile
